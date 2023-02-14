@@ -8,6 +8,7 @@ from binance import Client
 
 client = Client('api_key','api_secret_key')
 
+#naming the columns and changing them to float
 def getminutedata(symbol, interval, lookback):
     frame = pd.DataFrame(client.get_historical_klines(symbol, interval, lookback+' min ago UTC'))
     frame = frame.iloc[:,:6]
@@ -37,6 +38,7 @@ y_train = np.array(y_train)
 
 x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
 
+#LSTM model is applied
 model = Sequential()
 
 model.add(LSTM(128, return_sequences= True, input_shape = (x_train.shape[1], 1), activation = 'relu'))
