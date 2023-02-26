@@ -41,16 +41,18 @@ x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
 #LSTM model is applied
 model = Sequential()
 
-model.add(LSTM(128, return_sequences= True, input_shape = (x_train.shape[1], 1), activation = 'relu'))
+#change the (desired number) depending on your knowledge about the model
+model.add(LSTM((desired number), return_sequences= True, input_shape = (x_train.shape[1], 1), activation = 'relu'))
 model.add(Dropout(0.4))
-model.add(LSTM(64, return_sequences= True, activation = 'relu'))
+model.add(LSTM((desired number), return_sequences= True, activation = 'relu'))
 model.add(Dropout(0.3))
-model.add(LSTM(32, activation = 'relu'))
+model.add(LSTM((desired number), activation = 'relu'))
 model.add(Dropout(0.2))
 model.add(Dense(1, activation = 'sigmoid'))
 
 model.compile(loss = 'mean_squared_error', optimizer = 'adam', metrics = ['accuracy'])
 
+#epochs can be any number(depends on the time for forward and backward prpagation)
 model.fit(x_train, y_train, epochs = 10, batch_size = 64)
 
 bitcoin_prices = data_final['Close'].values
